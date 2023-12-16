@@ -1,7 +1,7 @@
 # Hexapod Hardware Controller Driver
 
-Driver for `Hexapod Hardware Controller`
-which is `Bionik Hardware Controller` class
+Driver for `Hexapod Hardware Controller v1.0.0`
+which is `Hexapod Hardware Controller` class
 device.
 
 # Topology
@@ -10,8 +10,8 @@ device.
 /
 └── sys
     └── class
-        └── bhc
-            └── bhc0
+        └── hhc
+            └── hhc0
                 ├── motion
                 │   ├── leg1
                 │   │   ├── servo11
