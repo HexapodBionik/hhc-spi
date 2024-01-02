@@ -153,8 +153,8 @@ int send_one_servo_frame(struct spi_device *spi, uint8_t servo_id,
 	tx[1] = 1;  /* FRAME TYPE */
 	tx[2] = servo_id;
 	tx[3] = servo_op_type;
-	tx[4] = ANGLE_REAL(angle);
-	tx[5] = ANGLE_FLOAT(angle);
+	tx[4] = ANGLE_REAL_PART(angle);
+	tx[5] = ANGLE_FLOAT_PART(angle);
 
 	return spi_sync_transfer(spi, &tr, 1);
 }
