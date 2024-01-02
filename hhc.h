@@ -17,6 +17,7 @@ struct hhc_device {
 	struct spi_device *spi;
 	struct device	  *dev;
 	angle_t servo_angles[6][3];
+	bool did_write;
 
 	struct kobject *motion_kobj;
 	struct kobject *leg_kobjs[6];
