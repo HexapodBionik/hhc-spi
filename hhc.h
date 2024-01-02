@@ -8,10 +8,10 @@
 
 typedef uint16_t angle_t;
 
-#define ANGLE(real_part, float_part) ((angle_t) real_part | \
-				      (((angle_t) float_part) << 8))
+#define ANGLE(int_part, float_part) ((angle_t) int_part | \
+				     (((angle_t) float_part) << 8))
 #define ANGLE_FLOAT_PART(angle)	((uint8_t) (angle >> 8))
-#define ANGLE_REAL_PART(angle)	((uint8_t) angle)
+#define ANGLE_INT_PART(angle)	((uint8_t) angle)
 
 struct hhc_device {
 	struct spi_device *spi;

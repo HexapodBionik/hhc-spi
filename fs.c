@@ -59,7 +59,7 @@ static ssize_t servo_show(struct kobject *kobj, struct kobj_attribute *attr, cha
 	}
 
 	return sprintf(buf, "%hhu.%02hhu\n",\
-		       ANGLE_REAL_PART(angle),
+		       ANGLE_INT_PART(angle),
 		       ANGLE_FLOAT_PART(angle));
 }
 
@@ -68,7 +68,7 @@ static ssize_t servo_store(struct kobject *kobj, struct kobj_attribute *attr, co
 	size_t i;
 	size_t dot_pos = count + 1;
 	ssize_t part2len = -1;
-	uint8_t angle_real, angle_float;
+	uint8_t angle_int, angle_float;
 	angle_t angle;
 
 	struct device *device;
@@ -107,7 +107,7 @@ static ssize_t servo_store(struct kobject *kobj, struct kobj_attribute *attr, co
 	if (part2len > 2)
 		return -1;
 
-	sscanf(buf, "%hhu", (uint8_t*) &angle_real);
+	sscanf(buf, "%hhu", (uint8_t*) &angle_int);
 	sscanf(buf + dot_pos + 1, "%hhu", (uint8_t*) &angle_float);
 
 	if (part2len == 1)
@@ -119,7 +119,7 @@ static ssize_t servo_store(struct kobject *kobj, struct kobj_attribute *attr, co
 	device = container_of(kobj->parent->parent, struct device, kobj);
 	hhc_dev = dev_get_drvdata(device);
 
-	angle = ANGLE(angle_real, angle_float);
+	angle = ANGLE(angle_int, angle_float);
 	hhc_dev->servo_angles[legno][servono] = angle;
 
 	if (!hhc_dev->did_write) {
