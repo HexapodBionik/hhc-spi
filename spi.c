@@ -137,3 +137,24 @@ void hhc_deregister(void)
 	spi_unregister_driver(&hhc_spi_driver);
 	fs_class_destroy();
 }
+
+int send_one_servo_frame(struct spi_device *spi, uint8_t servo_id,
+			 uint8_t servo_op_type, angle_t angle)
+{
+	uint8_t tx[6];
+	uint8_t rx[6] = {0};
+	struct spi_transfer tr = {
+		.tx_buf = &tx,
+		.rx_buf = &rx,
+		.len = 6,
+	};
+
+	tx[0] = 6;  /* FRAME LEN */
+	tx[1] = 1;  /* FRAME TYPE */
+	tx[2] = servo_id;
+	tx[3] = servo_op_type;
+	tx[4] = ANGLE_REAL(angle);
+	tx[5] = ANGLE_FLOAT(angle);
+
+	return spi_sync_transfer(spi, &tr, 1);
+}
