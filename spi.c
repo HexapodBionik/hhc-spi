@@ -150,7 +150,7 @@ int send_one_servo_frame(struct spi_device *spi, uint8_t servo_id,
 	};
 
 	tx[0] = 6;  /* FRAME LEN */
-	tx[1] = 1;  /* FRAME TYPE */
+	tx[1] = 2;  /* FRAME TYPE */
 	tx[2] = servo_id;
 	tx[3] = servo_op_type;
 	tx[4] = ANGLE_INT_PART(angle);
